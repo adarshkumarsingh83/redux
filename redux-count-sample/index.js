@@ -8,50 +8,71 @@ const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
 const EQUAL = "EQUAL";
 
-function actionOperationFactory(option) {
+function actionOperationFactory(option, usd, cent) {
   switch (option) {
     case INCREMENT:
       return {
         type: INCREMENT,
+        usd: usd,
+        cent: cent,
         info: "INCREMENT OPERATION"
       };
 
     case DECREMENT:
       return {
         type: DECREMENT,
+        usd: usd,
+        cent: cent,
         info: "DECREMENT OPERATION"
       };
 
     default:
       return {
         type: EQUAL,
+        usd: usd,
+        cent: cent,
         info: "EQUAL OPERATION"
       };
   }
 }
 
 const initState = {
-  count: 0
+  dollar: 0,
+  cent: 0
 };
 
-const reducer = (state = initState, action) => {
+const countReducer = (state = initState, action) => {
   switch (action.type) {
     case INCREMENT:
-      return {
-        ...state,
-        count: state.count + 1
-      };
+      if (action.usd) {
+        return {
+          ...state,
+          dollar: state.dollar + 1
+        };
+      } else if (action.cent) {
+        return {
+          ...state,
+          cent: state.cent + 1
+        };
+      }
 
     case DECREMENT:
-      return {
-        ...state,
-        count: state.count - 1
-      };
+      if (action.usd) {
+        return {
+          ...state,
+          dollar: state.dollar - 1
+        };
+      } else if (action.cent) {
+        return {
+          ...state,
+          cent: state.cent - 1
+        };
+      }
 
     case EQUAL:
       return {
         ...state,
-        count: state.count
+        dollar: state.dollar
       };
 
     default:
@@ -60,22 +81,24 @@ const reducer = (state = initState, action) => {
 };
 
 // holding the appliction state
-const store = createStore(reducer);
-console.log("init state of store ", store.getState());
-const unsubscribe = store.subscribe(() => {
-  console.log("updated state of store ", store.getState());
+const countStore = createStore(countReducer);
+console.log("init state of store ", countStore.getState());
+const unsubscribe = countStore.subscribe(() => {
+  console.log("state of storeCount ", countStore.getState());
 });
-store.dispatch(actionOperationFactory(INCREMENT));
-store.dispatch(actionOperationFactory(INCREMENT));
-store.dispatch(actionOperationFactory(INCREMENT));
-store.dispatch(actionOperationFactory(EQUAL));
-store.dispatch(actionOperationFactory(INCREMENT));
-store.dispatch(actionOperationFactory(DECREMENT));
-store.dispatch(actionOperationFactory(EQUAL));
-store.dispatch(actionOperationFactory(DECREMENT));
-store.dispatch(actionOperationFactory(DECREMENT));
-store.dispatch(actionOperationFactory(DECREMENT));
-store.dispatch(actionOperationFactory(DECREMENT));
-store.dispatch(actionOperationFactory(DECREMENT));
+countStore.dispatch(actionOperationFactory(INCREMENT, true, false));
+countStore.dispatch(actionOperationFactory(INCREMENT, true, true));
+countStore.dispatch(actionOperationFactory(INCREMENT, false, true));
+countStore.dispatch(actionOperationFactory(INCREMENT, false, true));
+countStore.dispatch(actionOperationFactory(INCREMENT, false, false));
+countStore.dispatch(actionOperationFactory(EQUAL));
+countStore.dispatch(actionOperationFactory(INCREMENT, true, false));
+countStore.dispatch(actionOperationFactory(DECREMENT, false, true));
+countStore.dispatch(actionOperationFactory(EQUAL));
+countStore.dispatch(actionOperationFactory(DECREMENT, false, true));
+countStore.dispatch(actionOperationFactory(DECREMENT, true, true));
+countStore.dispatch(actionOperationFactory(DECREMENT, false, true));
+countStore.dispatch(actionOperationFactory(DECREMENT, true, false));
+countStore.dispatch(actionOperationFactory(DECREMENT, true, false));
 unsubscribe();
 console.log("redux server stopped");

@@ -1,0 +1,33 @@
+$ mkdir redux-basic 
+
+$ cd redux-basic
+
+#to init he pkg.json 
+$ npm init -- yes 
+
+$ npm install redux 
+
+$ cat > index.js
+   console.log('starter test');
+   
+Crt + C
+
+
+------------------------------------------------------------------------------------
+DO THE NECSSARY CHANGES 
+
+1. CREATE A ACTION CONSTANT 
+2. CRATE A ACTION FACTORY 
+3. CREATE INIT STATE FOR THE ACTION 
+4. DEFINE THE REDUCERS 
+5. IMPORT THE REDUX 
+6. CREATE A STORE FROM REDUX 
+7. CREATE A REDUCER COMIBINER 
+8. COMBINE THE REDUCERS WITH KEY AND VALUE 
+9. CRATE A STORE AND PASS THE COMBINER TO IT 
+10. SUBSCRIBE TO THE STORE 
+11. CALL DISAPATCH ON STORE WITH PASSING ACTION FACTORY 
+12.AT THE END UNSUBSCRIBE STORE 
+
+------------------------------------------------------------------------------------
+$ node index
