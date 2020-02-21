@@ -1,0 +1,128 @@
+$ mkdir redux-basic 
+
+$ cd redux-basic
+
+#to init he pkg.json 
+$ npm init -- yes 
+
+$ npm install redux 
+
+$ cat > index.js
+   console.log('starter test');
+   
+Crt + C
+
+$ node index
+
+edit index.js 
+-------------------------------------------------------------------------------------------
+1 STEP (DEFINE THE ACTION CONSTANT)
+.....................................
+const INCREMENT = "INCREMENT";
+const DECREMENT = "DECREMENT";
+const EQUAL = "EQUAL";
+
+
+.....................................
+2 STEP (DEFINE THE ACTION FACTORY)
+.....................................
+function actionOperationFactory(option) {
+  switch (option) {
+    case INCREMENT:
+      return {
+        type: INCREMENT,
+        info: "INCREMENT OPERATION"
+      };
+
+    case DECREMENT:
+      return {
+        type: DECREMENT,
+        info: "DECREMENT OPERATION"
+      };
+
+    default:
+      return {
+        type: EQUAL,
+        info: "EQUAL OPERATION"
+      };
+  }
+}
+
+
+...............................................
+3 STEP (DEFINE THE INIT STATE OF THE OPERATION)
+...............................................
+const initState = {
+  count: 0
+};
+
+
+..........................................................................................
+4 STEP (DEFINE THE REDUCER METHOD TO ACT ON THE ACTION AND PERFORM STATE CHANGE ON STATE)
+..........................................................................................
+const reducer = (state = initState, action) => {
+  switch (action.type) {
+    case INCREMENT:
+      return {
+        ...state,
+        count: state.count + 1
+      };
+
+    case DECREMENT:
+      return {
+        ...state,
+        count: state.count - 1
+      };
+
+    default:
+      return state;
+  }
+};
+
+
+.....................................
+5 STEP (IMPORT REDUX )
+.....................................
+const redux = require("redux");
+
+
+.....................................
+6 STEP (CREATE REDUX STORE)
+.....................................
+const createStore = redux.createStore;
+
+
+...............................................
+6 STEP(HOLD THE APPLICATION STATE VIS REDUCER ) 
+...............................................
+const store = createStore(reducer);
+
+
+.............................................
+7 STEP (RETRIVE THE INTI STATE OF THE STORE)
+.............................................
+console.log("init state of store ", store.getState());
+
+
+.....................................
+8 STEP(SUBSCRIBE TO THE STORE )
+.....................................
+const unsubscribe = store.subscribe(() => {
+  console.log("updated state of store ", store.getState());
+});
+
+
+.....................................................
+9 STEP(PERFORM THE ACTION ON STORE VIA ACTION FACTORY)
+.....................................................
+store.dispatch(actionOperationFactory(INCREMENT));
+
+
+.....................................
+10 STEP (UNSUBSCRIBE THE STORE )
+.....................................
+unsubscribe();
+
+
+-------------------------------------------------------------------------------------------
+$ node index
