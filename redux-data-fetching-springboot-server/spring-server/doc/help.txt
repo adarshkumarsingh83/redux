@@ -1,0 +1,15 @@
+#To down load the node modules
+$ npm i
+
+#To build the application
+$ mvn clean package
+
+#To execute the application
+$ mvn spring-boot:run
+
+browser url
+http://localhost:8080
+
+$ curl localhost:8080/api
+
+$ curl localhost:8080/api/employees

@@ -1,0 +1,25 @@
+
+
+cd redux-client
+$ npm install redux
+$ npm install axios 
+$ npm install redux-logger
+$ npm install redux-thunk
+or 
+$ npm i
+
+-----------------------------
+follow the steps for actions and action factory 
+reducers buiding 
+store creation and then call 
+-----------------------------
+NOTE START THE SPRING BOOT SERVER BEFORE STARTEDING CLIENT 
+$ node index 
+
+To buld and start the server 
+cd spring-server
+#To build the application
+$ mvn clean package
+
+#To execute the application
+$ mvn spring-boot:run
